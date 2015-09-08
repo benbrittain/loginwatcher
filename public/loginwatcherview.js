@@ -61,6 +61,40 @@ var User = React.createClass({
     return new Date(hours);
   },
 
+  thisWeek: function() {
+    var hours = 0;
+    var todayDate = new Date();
+    var LastFridayDate = new Date();
+
+    LastFridayDate.setDate(LastFridayDate.getDate()-1);
+
+    while (LastFridayDate.getDay() != 5){
+        LastFridayDate.setDate(LastFridayDate.getDate()-1);
+    }
+    // Friday = 5
+    if(todayDate.getDay() == 5) {
+    console.log(todayDate); //if today is Friday, it will display today date
+    LastFridayDate = todayDate;
+    } else {
+    console.log(LastFridayDate); //if today is not Friday, it will display last friday date
+    }
+
+    var today = new Date().toISOString().slice(0,10);
+    _.forEach(this.state.punches, function(p, key) {
+      var timeIn = new Date(p['in_datetime']);
+      if(timeIn.getDate() >= LastFridayDate.getDate()) {
+        // compensating for the missedpunch format weirdness
+        if ((today == p['applydate']) && (p['endreason'] == "missedOut")) {
+          hours += new Date() - timeIn;
+        } else {
+          var timeOut = new Date(p['out_datetime']);
+          hours += timeOut - timeIn;
+        }
+      }
+    });
+    return new Date(hours);
+  },
+
   render: function() {
     var level = '';
     if (this.signedIn()) {
@@ -74,23 +108,25 @@ var User = React.createClass({
           <td key="user"> {this.props.user} </td>
           <td key="badgenum"> {this.state.badgenum} </td>
           <td key="signedin"> {this.signedIn() ? this.signedIn().toJSON().slice(11, 16) : "N/A"} </td>
-          <td key="timeworked"> {this.hoursWorked().toJSON().slice(11, 16)} </td>
+          <td key="thisweek"> {this.thisWeek().toJSON().slice(11, 16)} </td>
+          <td key="payperiod"> {this.hoursWorked().toJSON().slice(11, 16)} </td>
           </tr>
         )
   }
 });
 
-var Users = React.createClass({
+var UsersTable = React.createClass({
   render: function() {
     return (
         <div id="main">
         <div class="table" >
           <table>
           <tr>
-            <th>RIT ID</th>
             <th>NAME</th>
+            <th>RIT ID</th>
             <th>BADGENUM</th>
             <th>ACTIVE</th>
+            <th>THIS WEEK</th>
             <th>PAYPERIOD</th>
           </tr>
             {
@@ -105,4 +141,4 @@ var Users = React.createClass({
   }
 });
 
-React.render(<Users users={_.clone(users, true)} />, document.getElementById('app'));
+React.render(<UsersTable users={_.clone(users, true)} />, document.getElementById('app'));

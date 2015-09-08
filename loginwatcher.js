@@ -1,23 +1,28 @@
-var readline = require('readline');
+var prompt = require('prompt');
 var request = require('request');
-var request = request.defaults({jar: true})
+var request = request.defaults({jar: true});
 var path = require('path');
 var express = require('express');
 var app = express();
 app.use(express.static('public'));
 
-var rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+prompt.start();
 
-rl.question("RIT ID: ", function(username) {
-  rl.question("password: ", function(password) {
+prompt.get([{
+  name: 'ritdce',
+  required: true
+}, {
+  name: 'password',
+  hidden: true,
+  conform: function (value) {
+    return true;
+  }
+}], function (err, result) {
     var getUserData = function(user, func) {
       // auth so people don't have to give me passwords
       var formData = {
-        'username': username,
-        'password': password
+        'username': result.ritdce,
+        'password': result.password
       };
       request.post({url:'https://fastapps.rit.edu/kronosTimecard/login', formData: formData},
           function (err, response, body) {
@@ -58,5 +63,4 @@ rl.question("RIT ID: ", function(username) {
       var port = server.address().port;
       console.log('loginwatcher listening on http://%s:%s', host, port);
     });
-  });
 });
