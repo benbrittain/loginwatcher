@@ -1,0 +1,15 @@
+{
+  "name": "loginwatcher",
+  "version": "1.0.0",
+  "description": "",
+  "main": "loginwatcher.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ben Brittain",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.13.3",
+    "request": "^2.61.0"
+  }
+}
