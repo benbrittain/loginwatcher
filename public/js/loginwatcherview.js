@@ -118,8 +118,6 @@ var User = React.createClass({
 var UsersTable = React.createClass({
   render: function() {
     return (
-        <div id="main">
-        <div class="table" >
           <table>
           <tr>
             <th>NAME</th>
@@ -135,9 +133,7 @@ var UsersTable = React.createClass({
                     <User key={i} user={user} />)
               })
             }
-            </table>
-            </div>
-        </div>);
+            </table>);
   }
 });
 

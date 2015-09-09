@@ -1,15 +1,40 @@
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <title>Login Watcher</title>
-    <script src="/lodash.min.js"></script>
-    <script src="/react.min.js"></script>
-    <script src="/JSXTransformer.js"></script>
-    <script type="text/jsx" src="/loginwatcherview.js"></script>
-    <link rel="stylesheet" type="text/css" href="loginwatcher.css" />
+    <script src="/js/lodash.min.js"></script>
+    <script src="/js/react.min.js"></script>
+    <script src="/js/JSXTransformer.js"></script>
+    <script type="text/jsx" src="/js/loginwatcherview.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
   </head>
   <body>
-    <div id="app" />
+    <body id="top">
+
+		<!-- Header -->
+			<header id="header">
+				<h1><a href="#">Login Watcher</a></h1>
+				<a href="#">Login</a>
+				<a href="#nav">Menu</a>
+			</header>
+
+		<!-- Nav -->
+			<nav id="nav">
+				<ul class="links">
+					<li><a href="#top">Top</a></li>
+					<li><a href="#content">Content</a></li>
+					<li><a href="#elements">Elements</a></li>
+					<li><a href="#grid">Grid System</a></li>
+				</ul>
+				<ul class="actions vertical">
+					<li><a href="http://skel.io" class="button special fit">Download</a></li>
+					<li><a href="http://skel.io" class="button fit">Documentation</a></li>
+				</ul>
+			</nav>
+
+			<div id="app"></div>
+
+      <script src="/js/skel.min.js"></script>
+			<script src="/js/main.js"></script>
   </body>
 </html>
